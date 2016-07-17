@@ -109,11 +109,16 @@ class TicTacToe
     else
       puts "No one wins!"
     end
+    show
   end
 
   def show
     # not very pretty printing!
-    self.board.rows.each { |row| p row }
+    b = board.rows.deep_dup
+    b.each{|row| row.map!{|cell| cell.is_a?(Symbol) ? cell.to_s : '_'}}
+    b.each { |row| p row.join('  ') }
+    puts
+    sleep(2)
   end
 
   private
@@ -128,6 +133,7 @@ class TicTacToe
 
   def play_turn
     loop do
+      show
       current_player = self.players[self.turn]
       pos = current_player.move(self, self.turn)
 

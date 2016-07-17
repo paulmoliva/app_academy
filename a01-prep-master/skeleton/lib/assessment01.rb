@@ -5,17 +5,12 @@ class Array
   # no argument, then use the first element of the array as the default accumulator.
 
   def my_inject(accumulator = nil, &prc)
-    if accumulator.nil?
-      i = 1
-      accumulator = self[0]
-    else
-      i = 0
-    end
-    self[i..-1].each do |el|
-      accumulator = prc.call(accumulator, el)
-    end
+    accumulator.nil? ? i = 1 : i = 0
+    accumulator ||= self[0]
+    self[i..-1].each{|el| accumulator = prc.call(accumulator, el)  }
     accumulator
   end
+
 end
 
 # primes(num) returns an array of the first "num" primes.
@@ -39,17 +34,14 @@ end
 # Note that the 1st factorial number is 0!, which equals 1. The 2nd factorial
 # is 1!, the 3rd factorial is 2!, etc.
 
-def fact(n)
-  (1..n).reduce(:*)
-end
+
 
 def factorials_rec(num)
   if num == 1
     [1]
   else
     facs = factorials_rec(num - 1)
-    facs << facs.last * (num - 1)
-    facs
+    facs << (num - 1) * facs.last
   end
 end
 
@@ -61,15 +53,9 @@ class Array
   # [1, 3, 4, 3, 0, 3, 0].dups => { 3 => [1, 3, 5], 0 => [4, 6] }
 
   def dups
-    result = Hash.new{|h, k| h[k] = []}
-    counts = Hash.new(0)
-    self.each do |el|
-      counts[el] += 1
-    end
-    self.each_with_index do |el, i|
-      result[el] << i if counts[el] > 1
-    end
-    result
+    counts = Hash.new { |hash, key| hash[key] = [] }
+    self.each_with_index { |e, i| counts[e] << i if count(e) > 1}
+    counts
   end
 end
 
@@ -86,7 +72,7 @@ class String
         result << self[i..j]
       end
     end
-    result.select{|el| el == el.reverse && el.length > 1}
+    result.select{|el| el == el.reverse}
   end
 end
 
@@ -95,26 +81,40 @@ class Array
   # Write an Array#merge_sort method; it should not modify the original array.
 
   def merge_sort(&prc)
-    prc ||= Proc.new {|x,y| x <=> y}
-    return self if self.length <= 1
-    split = length/2
-    left = self[0...split]
-    right = self[split..-1]
+    prc ||= Proc.new {|e, f| e <=> f}
+    return self if length <= 1
+    mid = length / 2
+    left = self.take(mid)
+    right = self.drop(mid)
     Array.merge(left.merge_sort(&prc), right.merge_sort(&prc), &prc)
   end
 
   private
   def self.merge(left, right, &prc)
-    return left if right.empty?
-    return right if left.empty?
-    merged = []
+    result = []
     until left.empty? || right.empty?
-      prc.call(left.first, right.first) < 1 ? merged << left.shift : merged << right.shift
+      if prc.call(left.first, right.first) < 1
+        result << left.shift
+      else
+        result << right.shift
+      end
     end
-
-      merged += left
-      merged += right
-
-      merged
+      result.concat(left).concat(right)
   end
 end
+
+class Array
+  def b_search(target)
+    mid = length/2
+    return mid if self[mid] == target
+    if self[mid] > target
+      return self[0...mid].b_search(target)
+    else
+      return mid + 1 + self[mid+1..-1].b_search(target)
+    end
+  end
+end
+
+p [1,2,3,4,5].b_search(3) == 2
+p [1,2,3,4,5].b_search(5) == 4
+p [1,2,3,4,5].b_search(1) == 0
