@@ -1,0 +1,38 @@
+<h1>Create Rental Request</h1>
+
+
+<form class="form-control" action="/cat_rental_requests" method="post">
+  <p>
+    <label>
+      <p>Cats:</p>
+      <Select id="color" name="cat_rental_request[cat_id]" >
+        <option value="Select Cat" disabled="true" selected="true">Select Cat</option>
+        <% @cats.each do |cat| %>
+          <option value="<%= cat.id %>"><%= cat.name %></option>
+        <% end %>
+      </select>
+    </label>
+  </p>
+  <p>
+    <label>
+      Start Date:
+      <input type="date" name="cat_rental_request[start_date]" >
+    </label>
+  </p>
+  <p>
+    <label>
+      End Date:
+      <input type="date" name="cat_rental_request[end_date]" >
+    </label>
+  </p>
+  <p>
+    <label>
+
+    </label>
+  </p>
+
+
+  <input type="submit" value="Rent Cat" >
+
+
+</form>

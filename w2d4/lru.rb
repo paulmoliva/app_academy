@@ -14,7 +14,7 @@ class LRUCache
     if @store.include?(el)
       @store.delete(el)
       @store << el
-    elsif @store.length <= @size
+    elsif @store.length >= @size
       @store.shift
       @store << el
     else

@@ -1,0 +1,47 @@
+<% action_url = (action == :new) ? cats_url : cat_url(cat) %>
+
+<form class="form-control" action=" <%= action_url %> " method="post">
+  <% if action == :edit && @cat.persisted? %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <p>
+  <label>
+    <p>Name:</p>
+    <input type="text" name="cat[name]" value=" <%= @cat.name %> ">
+  </label>
+</p>
+<p>
+  <label>
+    <p>Sex:</p>
+    M<input type="radio" name="cat[sex]" value="M" <%= @cat.sex == 'M' ? "checked" : ""  %> >
+    F<input type="radio" name="cat[sex]" value="F" <%= @cat.sex == 'F' ? "checked" : ""  %> >
+  </label>
+</p>
+<p>
+  <label>
+    <p>Color:</p>
+    <Select id="color" name="cat[color]" >
+      <option value="Select Color" disabled="true" selected="false">Select Color</option>
+      <option value="White" selected="<%= @cat.color == 'White' ? "true" : "false"  %>">White</option>
+      <option value="Grey" selected="<%= @cat.color == 'Grey' ? "true" : "false"  %>">Grey</option>
+      <option value="Orange" selected="<%= @cat.color == 'Orange' ? "true" : "false"  %>">Orange</option>
+      <option value="Black" selected="<%= @cat.color == 'Black' ? "true" : "false"  %>">Black</option>
+    </select>
+  </label>
+</p>
+<p>
+  <label>
+    <p>Birth Date:</p>
+    <input type="date" name="cat[birth_date]" value="<%= @cat.birth_date %>" >
+  </label>
+</p>
+<p>
+  <label>
+    <p>Description</p>
+    <textarea name="cat[description]" rows="5"><%= @cat.description %></textarea>
+  </label>
+</p>
+<input type="submit" value="<%= action == :new ? "Create Cat" : "Edit Cat" %>" >
+
+
+</form>

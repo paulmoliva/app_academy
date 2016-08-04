@@ -1,0 +1,17 @@
+<tr>
+  <td><%= req.start_date %></td>
+  <td><%= req.end_date %></td>
+  <td><%= link_to " #{get_requestor(req)}", user_url(req.user_id) %> </td>
+  <td>
+    <% if current_user %>
+      <% if req.pending? && current_user.cats.include?(Cat.find_by_id(req.cat_id))%>
+          <%= req.status %>
+          <%= button_to "Approve", approve_cat_rental_request_url(req) %>
+          <%= button_to "Deny", deny_cat_rental_request_url(req) %>
+      <% else %>
+        <%= req.status %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<% get_requestors %>
