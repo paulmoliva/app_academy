@@ -1,0 +1,21 @@
+<h1><%= @track.title %></h1>
+<h2>Track Type: <%= @track.track_type %></h2>
+<h2>Notes</h2>
+  <% @track.notes.each do |note| %>
+    <strong>
+      <%=note.user_id%>
+    </strong>
+    <p>
+      <%= note.body %>
+    </p>
+  <% end %>
+
+<%= render 'notes/form' %>
+<%= link_to 'Edit', edit_track_url(@track) %>
+<%= link_to 'Delete Album', track_url(@track), action: :destroy, method: :delete %>
+
+<% content_for :footer do%>
+<% album = Album.find(@track.album_id) %>
+Album: <%= link_to "#{album.title}", album_url(album) %>
+  <%= link_to "New Track", new_track_url %>
+<% end %>
