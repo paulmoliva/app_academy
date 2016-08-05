@@ -3,15 +3,15 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     @note.user_id = current_user.id
     if @note.save
-      redirect back
+      redirect_to track_url(note_params[:track_id])
     else
-      redirect back, notice: @note.errors.full_messages
+      redirect_to track_url(note_params[:track_id]), notice: @note.errors.full_messages
     end
   end
 
   private
 
   def note_params
-    params.require(:note).permit(:body)
+    params.require(:note).permit(:body, :track_id)
   end
 end

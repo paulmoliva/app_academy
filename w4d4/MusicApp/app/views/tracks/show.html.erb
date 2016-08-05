@@ -3,7 +3,7 @@
 <h2>Notes</h2>
   <% @track.notes.each do |note| %>
     <strong>
-      <%=note.user_id%>
+      <%=User.find(note.user_id).email%>
     </strong>
     <p>
       <%= note.body %>

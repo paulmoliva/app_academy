@@ -4,6 +4,6 @@
     <textarea name="note[body]" rows="8" cols="40">Add a note</textarea>
   </label>
   <br />
-  <input type="hidden" name="note[track_id]" value="">
+  <input type="hidden" name="note[track_id]" value="<%= params[:id] %>">
   <input type="submit" name="name" value="Submit Note">
 </form>
