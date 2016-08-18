@@ -1,0 +1,68 @@
+body {
+  background-image: url('http://vietsensetravel.net/view/at_vietnam-package-tour-6-days-5-nights-from-hanoi_41fc070c61c037e84ef7c83a8b073a3a.jpg');
+  z-index: -1000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+ul {
+  float: left;
+  background-image: url('http://exchangedownloads.smarttech.com/public/content/91/91ff873d-10d9-4f89-859b-d8561663d40e/previews/medium/0001.png');
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 33%;
+  list-style: none;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+}
+
+ul:hover{
+  background-color: rgba(255, 0, 0, 0.25);;
+  cursor: pointer;
+
+}
+
+li {
+  border: 20px solid black;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.disc1 {
+  width: 27%;
+  border-color: red;
+}
+
+.disc2 {
+  width: 50%;
+  border-color: blue;
+}
+
+.disc3 {
+  width: 80%;
+  border-color: wheat;
+}
+
+width: 50%;
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.selected {
+  background-color: rgba(0, 42, 63, 0.25);
+  border: 15px yellow dashed;
+}
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  color: whitesmoke;
+  text-shadow: 5px 5px black;
+  font-family: sans-serif;
+}
